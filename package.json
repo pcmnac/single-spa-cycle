@@ -1,6 +1,6 @@
 {
   "name": "@pcmnac/single-spa-cycle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a single spa plugin for cycle.js apps",
   "main": "lib/single-spa-cycle.js",
   "scripts": {
