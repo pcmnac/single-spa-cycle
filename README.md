@@ -1,5 +1,5 @@
 # single-spa-cycle
-a single-spa plugin for cycle.js applications (adapted from [CanopyTax/single-spa-react](https://github.com/CanopyTax/single-spa-react)
+a single-spa plugin for cycle.js applications (adapted from [CanopyTax/single-spa-react](https://github.com/CanopyTax/single-spa-react))
 
 Generic lifecycle hooks for Cycle.js applications that are registered as [child applications](https://github.com/CanopyTax/single-spa/blob/master/docs/child-applications.md) of [single-spa](https://github.com/CanopyTax/single-spa).
 
