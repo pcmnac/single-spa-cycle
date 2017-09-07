@@ -55,12 +55,3 @@ function unmount(opts) {
 		resolve();
 	});
 }
-
-function getRootDomEl(opts) {
-	const el = opts.domElementGetter();
-	if (!el) {
-		throw new Error(`single-spa-cycle: domElementGetter function did not return a valid dom element`);
-    }
-    
-	return el;
-}
