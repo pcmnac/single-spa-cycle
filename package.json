@@ -4,7 +4,7 @@
   "description": "a single spa plugin for cycle.js apps",
   "main": "lib/single-spa-cycle.js",
   "scripts": {
-    "build": "babel src --out-dir lib"
+    "build": "babel src --source-maps --out-dir lib"
   },
   "repository": {
     "type": "git",

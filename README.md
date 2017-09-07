@@ -5,16 +5,19 @@ Generic lifecycle hooks for Cycle.js applications that are registered as [child 
 
 ## Quickstart
 
-In your [child app's entry file](https://github.com/CanopyTax/single-spa/blob/docs-1/docs/configuring-child-applications.md#the-entry-file), do the following:
+First, in the child application, run `npm install --save @pcmnac/single-spa-cycle`. Then, in your [child app's entry file](https://github.com/CanopyTax/single-spa/blob/docs-1/docs/configuring-child-applications.md#the-entry-file), do the following:
 
 ```js
-import singleSpaCycle from '../single-spa-cycle';
-import Root from './root.component.js';
+
+import {run} from '@cycle/run'
+import {makeDOMDriver} from '@cycle/dom'
+import singleSpaCycle from '@pcmnac/single-spa-cycle';
+import rootComponent from './root.component.js';
 
 const cycleLifecycles = singleSpaCycle({
-	drivers: {},
-	rootComponent: Root,
-	domElementGetter: () => document.getElementById('main-content'),
+	run,
+	rootComponent,
+	drivers: { DOM: makeDOMDriver(document.getElementById('main-content'))}, // or { DOM: makeDOMDriver('#main-content')}
 });
 
 export const bootstrap = [
@@ -34,6 +37,6 @@ export const unmount = [
 
 All options are passed to single-spa-cycle via the `opts` parameter when calling `singleSpaCycle(opts)`. The following options are available:
 
-- `drivers`: (required) Additional drivers besides DOMDriver to be used by root component.
+- `run`: (required) Cycle.js run function.
+- `drivers`: (required) Drivers (including DOM Driver) to be used by your Cycle.js root component.
 - `rootComponent`: (required) The top level React component which will be rendered
-- `domElementGetter`: (required) A function that takes in no arguments and returns a DOMElement. This dom element is where the React application will be bootstrapped, mounted, and unmounted.

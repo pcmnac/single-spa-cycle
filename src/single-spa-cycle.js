@@ -1,11 +1,8 @@
-import {run} from '@cycle/run'
-import {makeDOMDriver} from '@cycle/dom'
-
 const defaultOpts = {
 	// required opts
+	run: null,
 	drivers: null,
 	rootComponent: null,
-	domElementGetter: null,
 }
 
 export default function singleSpaCycle(userOpts) {
@@ -18,6 +15,11 @@ export default function singleSpaCycle(userOpts) {
 		...userOpts,
 	};
 
+	if (!opts.run) {
+		throw new Error(`single-spa-cycle must be passed opts.run function`);
+	}
+
+
 	if (!opts.drivers) {
 		throw new Error(`single-spa-cycle must be passed opts.drivers`);
 	}
@@ -25,11 +27,7 @@ export default function singleSpaCycle(userOpts) {
 	if (!opts.rootComponent) {
 		throw new Error(`single-spa-cycle must be passed opts.rootComponent`);
 	}
-
-	if (!opts.domElementGetter) {
-		throw new Error(`single-spa-cycle must be passed opts.domElementGetter function`);
-	}
-
+	
 	return {
 		bootstrap: bootstrap.bind(null, opts),
 		mount: mount.bind(null, opts),
@@ -38,25 +36,21 @@ export default function singleSpaCycle(userOpts) {
 }
 
 function bootstrap(opts) {
-	return new Promise((resolve, reject) => {
-		resolve();
-	});
+	return Promise.resolve();
 }
-
-let dispose;
 
 function mount(opts) {
 	return new Promise((resolve, reject) => {
-        dispose = run(opts.rootComponent, {...opts.drivers, DOM: makeDOMDriver(getRootDomEl(opts))});
+		opts.dispose = opts.run(opts.rootComponent, opts.drivers);
 		resolve();
 	});
 }
 
 function unmount(opts) {
 	return new Promise((resolve, reject) => {
-		if (dispose) {
-			dispose();
-			dispose = null;
+		if (opts.dispose) {
+			opts.dispose();
+			opts.dispose = null;
 		}
 		resolve();
 	});
