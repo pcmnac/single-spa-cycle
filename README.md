@@ -39,4 +39,4 @@ All options are passed to single-spa-cycle via the `opts` parameter when calling
 
 - `run`: (required) Cycle.js run function.
 - `drivers`: (required) Drivers (including DOM Driver) to be used by your Cycle.js root component.
-- `rootComponent`: (required) The top level React component which will be rendered
+- `rootComponent`: (required) The top level Cycle.js component which will be rendered
